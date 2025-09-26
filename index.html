@@ -1,136 +1,19 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Track & Field — A-Frame Scene</title>
-    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
-    <style>
-      body { margin: 0; font-family: sans-serif; }
-      .hint { position: absolute; left: 12px; top: 12px; z-index: 10; background: rgba(255,255,255,0.9); padding:8px; border-radius:6px; }
-    </style>
-  </head>
-  <body>
-    <div class="hint">
-      <strong>Track & Field Demo</strong><br>
-      By: Myron Tennell<br>
-      Press <code>S</code> to start the race, <code>R</code> to reset.<br>
-      On mobile: Drag to look, swipe screen to move.
-    </div>
-
-    <a-scene background="color: #87ceeb">
-      <!-- Camera rig with mobile-friendly controls -->
-      <a-entity id="cameraRig" position="0 2 12" movement-controls="fly: false">
-        <a-entity id="camera" camera look-controls wasd-controls="acceleration: 50" touch-controls>
-          <a-cursor></a-cursor>
-        </a-entity>
-      </a-entity>
-
-      <!-- Ground -->
-      <a-plane rotation="-90 0 0" width="60" height="200" color="#3b7a57" position="0 0 0"></a-plane>
-
-      <!-- Track base -->
-      <a-box position="0 0.01 -50" depth="120" width="12" height="0.02" color="#9b2b2b"></a-box>
-
-      <!-- Lane markings (6 lanes) -->
-      <a-entity id="lanes">
-        <a-box position="-5 0.02 -10" width="0.05" height="0.02" depth="120" color="#ffffff"></a-box>
-        <a-box position="-3 0.02 -10" width="0.05" height="0.02" depth="120" color="#ffffff"></a-box>
-        <a-box position="-1 0.02 -10" width="0.05" height="0.02" depth="120" color="#ffffff"></a-box>
-        <a-box position="1 0.02 -10" width="0.05" height="0.02" depth="120" color="#ffffff"></a-box>
-        <a-box position="3 0.02 -10" width="0.05" height="0.02" depth="120" color="#ffffff"></a-box>
-        <a-box position="5 0.02 -10" width="0.05" height="0.02" depth="120" color="#ffffff"></a-box>
-      </a-entity>
-
-      <!-- Runners (simple colored capsules) -->
-      <a-entity id="runners">
-        <a-cylinder id="runner1" position="-5 0.5 40" radius="0.3" height="1" color="#ff4136"></a-cylinder>
-        <a-cylinder id="runner2" position="-3 0.5 40" radius="0.3" height="1" color="#ff851b"></a-cylinder>
-        <a-cylinder id="runner3" position="-1 0.5 40" radius="0.3" height="1" color="#2ecc40"></a-cylinder>
-        <a-cylinder id="runner4" position="1 0.5 40" radius="0.3" height="1" color="#0074d9"></a-cylinder>
-        <a-cylinder id="runner5" position="3 0.5 40" radius="0.3" height="1" color="#b10dc9"></a-cylinder>
-        <a-cylinder id="runner6" position="5 0.5 40" radius="0.3" height="1" color="#ffdc00"></a-cylinder>
-      </a-entity>
-
-      <!-- Scoreboard text above camera -->
-      <a-entity position="0 3 6">
-        <a-text id="scoreboard" value="Press S to start the race" align="center" color="#000" width="6"></a-text>
-      </a-entity>
-
-      <script>
-        // Race controller
-        (function () {
-          const runners = [
-            document.getElementById('runner1'),
-            document.getElementById('runner2'),
-            document.getElementById('runner3'),
-            document.getElementById('runner4'),
-            document.getElementById('runner5'),
-            document.getElementById('runner6')
-          ];
-
-          const startZ = 40;
-          const finishZ = -50;
-          let animating = false;
-          let intervalId = null;
-
-          function resetRunners() {
-            runners.forEach((r, i) => {
-              r.setAttribute('position', `${-5 + i*2} 0.5 ${startZ}`);
-              r.setAttribute('scale', '1 1 1');
-            });
-            document.getElementById('scoreboard').setAttribute('value', 'Press S to start the race');
-            animating = false;
-            if (intervalId) { clearInterval(intervalId); intervalId = null; }
-          }
-
-          function startRace() {
-            if (animating) return;
-            animating = true;
-            const speeds = runners.map(() => 0.08 + Math.random() * 0.08);
-
-            document.getElementById('scoreboard').setAttribute('value', 'Race in progress...');
-
-            intervalId = setInterval(() => {
-              for (let i = 0; i < runners.length; i++) {
-                const r = runners[i];
-                const pos = r.getAttribute('position');
-                const newZ = pos.z - speeds[i];
-                r.setAttribute('position', `${pos.x} ${pos.y} ${newZ}`);
-
-                const scaleY = 1 + 0.05 * Math.sin(Date.now() / 80 + i);
-                r.setAttribute('scale', `1 ${scaleY} 1`);
-
-                if (newZ <= finishZ) {
-                  clearInterval(intervalId);
-                  intervalId = null;
-                  animating = false;
-                  const winnerIndex = i + 1;
-                  document.getElementById('scoreboard').setAttribute('value', `Runner ${winnerIndex} wins! Press R to reset.`);
-                  return;
-                }
-              }
-            }, 40);
-          }
-
-          // Controls for desktop and mobile
-          window.addEventListener('keydown', (e) => {
-            if (e.key.toLowerCase() === 's') startRace();
-            if (e.key.toLowerCase() === 'r') resetRunners();
-          });
-
-          // Mobile tap to reset/start
-          window.addEventListener('touchstart', (e) => {
-            if (!animating) {
-              startRace();
-            } else {
-              resetRunners();
-            }
-          });
-
-          resetRunners();
-        })();
-      </script>
-    </a-scene>
-  </body>
-</html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Space Defender — A-Frame Game</title>
+  <!-- A-Frame core -->
+  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
+  <!-- Physics (cannon.js based) -->
+  <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v5.0.0/dist/aframe-physics-system.min.js"></script>
+  <!-- Extra helpers (controls, look-at, etc) -->
+  <script src="https://unpkg.com/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
+  <!-- Particle system for explosions -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe-particle-system-component@3.0.0/dist/aframe-particle-system.min.js"></script>
+  <style>
+    body { margin:0; overflow:hidden; font-family: Inter, system-ui, sans-serif; }
+    #overlay {
+      position: fixed; left: 12px; top: 12px; z-index: 999; color: #fff;
+      background: rgba(0,0,0,0.35); padding: 10
