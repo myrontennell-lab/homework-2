@@ -2,68 +2,94 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>A-Frame Track Stadium with Bleachers</title>
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <title>Myron's Tennis Court</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
   </head>
   <body>
-    <a-scene>
-      
-      <!-- Ground -->
-      <a-plane 
-        color="#228B22" 
-        rotation="-90 0 0" 
-        width="300" 
-        height="300">
-      </a-plane>
+    <a-scene shadow="type: pcfsoft">
 
-      <!-- Track -->
-      <a-ring 
-        radius-inner="40" 
-        radius-outer="50" 
-        color="#B22222" 
-        rotation="-90 0 0" 
-        position="0 0.1 0">
-      </a-ring>
+      <!-- Sky and Sun -->
+      <a-sky color="#87CEEB"></a-sky>
+      <a-entity light="type: directional; intensity: 0.6; castShadow: true;" position="10 20 10"></a-entity>
+      <a-sphere position="-20 30 -10" radius="3" color="yellow" emissive="yellow"></a-sphere> <!-- sun -->
 
-      <!-- Lane markings -->
-      <a-ring radius-inner="40" radius-outer="40.2" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
-      <a-ring radius-inner="42.5" radius-outer="42.7" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
-      <a-ring radius-inner="45" radius-outer="45.2" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
-      <a-ring radius-inner="47.5" radius-outer="47.7" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
-      <a-ring radius-inner="50" radius-outer="50.2" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
-
-      <!-- Inner field -->
-      <a-circle 
-        radius="40" 
-        color="darkgreen" 
-        rotation="-90 0 0" 
-        position="0 0.05 0">
-      </a-circle>
-
-      <!-- Goalposts -->
-      <a-box position="0 2 -30" depth="0.5" height="4" width="0.2" color="white"></a-box>
-      <a-box position="5 2 -30" depth="0.5" height="4" width="0.2" color="white"></a-box>
-      <a-box position="2.5 4 -30" depth="0.5" height="0.2" width="5" color="white"></a-box>
-
-      <a-box position="0 2 30" depth="0.5" height="4" width="0.2" color="white"></a-box>
-      <a-box position="5 2 30" depth="0.5" height="4" width="0.2" color="white"></a-box>
-      <a-box position="2.5 4 30" depth="0.5" height="0.2" width="5" color="white"></a-box>
-
-     
-
-      <!-- Bleachers (stacked rings to look like stands) -->
-      <a-ring radius-inner="55" radius-outer="65" color="lightgray" rotation="-90 0 0" position="0 1 0"></a-ring>
-      <a-ring radius-inner="65" radius-outer="75" color="gray" rotation="-90 0 0" position="0 2 0"></a-ring>
-      <a-ring radius-inner="75" radius-outer="85" color="darkgray" rotation="-90 0 0" position="0 3 0"></a-ring>
-
-     
       <!-- Camera -->
-      <a-entity position="0 2 120">
-        <a-camera wasd-controls="enabled: true" look-controls="enabled: true"></a-camera>
+     <!-- Camera (Spawn ON the court, facing net) -->
+<a-entity position="0 1.6 -6" rotation="0 0 0">
+  <a-camera wasd-controls look-controls></a-camera>
+</a-entity>
+
+        <a-camera wasd-controls look-controls></a-camera>
       </a-entity>
 
-      <!-- Sky -->
-      <a-sky color="#87CEEB"></a-sky>
+      <!-- Ground -->
+      <a-plane 
+        position="0 -0.01 0" 
+        rotation="-90 0 0" 
+        width="200" 
+        height="200" 
+        color="#228B22" 
+        shadow="receive: true">
+      </a-plane>
+
+      <!-- Tennis Court (larger) -->
+      <a-plane 
+        position="0 0.001 0" 
+        rotation="-90 0 0" 
+        width="36" 
+        height="18" 
+        color="#2E8B57" 
+        shadow="receive: true">
+      </a-plane>
+
+      <!-- Court Lines -->
+      <a-box position="0 0.01 9" width="11" height="0.01" depth="0.05" color="#FFFFFF"></a-box>
+      <a-box position="0 0.01 -9" width="11" height="0.01" depth="0.05" color="#FFFFFF"></a-box>
+      <a-box position="5.5 0.01 0" width="0.05" height="0.01" depth="18" color="#FFFFFF"></a-box>
+      <a-box position="-5.5 0.01 0" width="0.05" height="0.01" depth="18" color="#FFFFFF"></a-box>
+      <a-box position="0 0.01 0" width="11" height="0.01" depth="0.05" color="#FFFFFF"></a-box>
+
+      <!-- Net -->
+      <a-box 
+        position="0 0.5 0" 
+        width="11" 
+        height="1" 
+        depth="0.05" 
+        material="opacity: 0.4; transparent: true; repeat: 10 10; src: https://cdn.aframe.io/a-painter/images/floor.jpg"
+        shadow="cast: true">
+      </a-box>
+
+      <!-- Tennis Ball -->
+      <a-sphere 
+        position="0 0.3 1" 
+        radius="0.25" 
+        color="yellow" 
+        shadow="cast: true">
+      </a-sphere>
+
+      <!-- Scoreboard -->
+      <a-box position="0 5 -12" width="8" height="4" depth="0.2" color="black">
+        <a-text value="Player 1: 30\nPlayer 2: 15" color="white" position="-3.5 1 0.11" wrap-count="20"></a-text>
+      </a-box>
+
+      <!-- Stadium Walls -->
+      <a-box position="0 2 -9.5" width="36" height="4" depth="1" color="#444"></a-box>
+      <a-box position="0 2 9.5" width="36" height="4" depth="1" color="#444"></a-box>
+      <a-box position="17.5 2 0" width="1" height="4" depth="18" color="#444"></a-box>
+      <a-box position="-17.5 2 0" width="1" height="4" depth="18" color="#444"></a-box>
+
+      <!-- Audience Stands -->
+      <a-box position="-14 1 -5" width="1" height="2" depth="8" color="#666"></a-box>
+      <a-box position="14 1 5" width="1" height="2" depth="8" color="#666"></a-box>
+
+      <!-- Spotlights -->
+      <a-cylinder position="-15 8 -5" radius="0.2" height="2" color="#888"></a-cylinder>
+      <a-entity light="type: spot; angle:60; intensity:1.2; distance:30" position="-15 9 -5" rotation="-60 30 0"></a-entity>
+
+      <a-cylinder position="15 8 5" radius="0.2" height="2" color="#888"></a-cylinder>
+      <a-entity light="type: spot; angle:60; intensity:1.2; distance:30" position="15 9 5" rotation="-60 -30 0"></a-entity>
+
     </a-scene>
   </body>
 </html>
+
