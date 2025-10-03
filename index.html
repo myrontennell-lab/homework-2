@@ -1,19 +1,69 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Space Defender — A-Frame Game</title>
-  <!-- A-Frame core -->
-  <script src="https://aframe.io/releases/1.4.0/aframe.min.js"></script>
-  <!-- Physics (cannon.js based) -->
-  <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v5.0.0/dist/aframe-physics-system.min.js"></script>
-  <!-- Extra helpers (controls, look-at, etc) -->
-  <script src="https://unpkg.com/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script>
-  <!-- Particle system for explosions -->
-  <script src="https://cdn.jsdelivr.net/npm/aframe-particle-system-component@3.0.0/dist/aframe-particle-system.min.js"></script>
-  <style>
-    body { margin:0; overflow:hidden; font-family: Inter, system-ui, sans-serif; }
-    #overlay {
-      position: fixed; left: 12px; top: 12px; z-index: 999; color: #fff;
-      background: rgba(0,0,0,0.35); padding: 10
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A-Frame Track Stadium with Bleachers</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      
+      <!-- Ground -->
+      <a-plane 
+        color="#228B22" 
+        rotation="-90 0 0" 
+        width="300" 
+        height="300">
+      </a-plane>
+
+      <!-- Track -->
+      <a-ring 
+        radius-inner="40" 
+        radius-outer="50" 
+        color="#B22222" 
+        rotation="-90 0 0" 
+        position="0 0.1 0">
+      </a-ring>
+
+      <!-- Lane markings -->
+      <a-ring radius-inner="40" radius-outer="40.2" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
+      <a-ring radius-inner="42.5" radius-outer="42.7" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
+      <a-ring radius-inner="45" radius-outer="45.2" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
+      <a-ring radius-inner="47.5" radius-outer="47.7" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
+      <a-ring radius-inner="50" radius-outer="50.2" color="white" rotation="-90 0 0" position="0 0.15 0"></a-ring>
+
+      <!-- Inner field -->
+      <a-circle 
+        radius="40" 
+        color="darkgreen" 
+        rotation="-90 0 0" 
+        position="0 0.05 0">
+      </a-circle>
+
+      <!-- Goalposts -->
+      <a-box position="0 2 -30" depth="0.5" height="4" width="0.2" color="white"></a-box>
+      <a-box position="5 2 -30" depth="0.5" height="4" width="0.2" color="white"></a-box>
+      <a-box position="2.5 4 -30" depth="0.5" height="0.2" width="5" color="white"></a-box>
+
+      <a-box position="0 2 30" depth="0.5" height="4" width="0.2" color="white"></a-box>
+      <a-box position="5 2 30" depth="0.5" height="4" width="0.2" color="white"></a-box>
+      <a-box position="2.5 4 30" depth="0.5" height="0.2" width="5" color="white"></a-box>
+
+     
+
+      <!-- Bleachers (stacked rings to look like stands) -->
+      <a-ring radius-inner="55" radius-outer="65" color="lightgray" rotation="-90 0 0" position="0 1 0"></a-ring>
+      <a-ring radius-inner="65" radius-outer="75" color="gray" rotation="-90 0 0" position="0 2 0"></a-ring>
+      <a-ring radius-inner="75" radius-outer="85" color="darkgray" rotation="-90 0 0" position="0 3 0"></a-ring>
+
+     
+      <!-- Camera -->
+      <a-entity position="0 2 120">
+        <a-camera wasd-controls="enabled: true" look-controls="enabled: true"></a-camera>
+      </a-entity>
+
+      <!-- Sky -->
+      <a-sky color="#87CEEB"></a-sky>
+    </a-scene>
+  </body>
+</html>
