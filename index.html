@@ -8,17 +8,28 @@
   <body>
     <a-scene shadow="type: pcfsoft">
 
+      <!-- ASSETS -->
+      <a-assets>
+        <!-- 3DTextures.me -->
+        <img id="grassTexture" src="https://ambientcg.com/get?file=Grass002_1K_Color.jpg" crossorigin="anonymous">
+        <img id="courtTexture" src="https://ambientcg.com/get?file=ConcreteSmooth001_1K_Color.jpg" crossorigin="anonymous">
+        <img id="wallTexture" src="https://ambientcg.com/get?file=ConcreteBare001_1K_Color.jpg" crossorigin="anonymous">
+
+        <!-- Poly.pizza models -->
+        <a-asset-item id="benchModel" src="https://cdn.poly.pizza/2Tt1A3mA2t8.glb"></a-asset-item>
+        <a-asset-item id="racketModel" src="https://cdn.poly.pizza/p3x0C2tfK1m.glb"></a-asset-item>
+        <a-asset-item id="chairModel" src="https://cdn.poly.pizza/FH82lZC4JHz.glb"></a-asset-item>
+        <a-asset-item id="coolerModel" src="https://cdn.poly.pizza/TZf7uTCaZbq.glb"></a-asset-item>
+        <a-asset-item id="scoreboardModel" src="https://cdn.poly.pizza/9KdsxCZv4gy.glb"></a-asset-item>
+      </a-assets>
+
       <!-- Sky and Sun -->
       <a-sky color="#87CEEB"></a-sky>
       <a-entity light="type: directional; intensity: 0.6; castShadow: true;" position="10 20 10"></a-entity>
-      <a-sphere position="-20 30 -10" radius="3" color="yellow" emissive="yellow"></a-sphere> <!-- sun -->
+      <a-sphere position="-20 30 -10" radius="3" color="yellow" emissive="yellow"></a-sphere>
 
       <!-- Camera -->
-     <!-- Camera (Spawn ON the court, facing net) -->
-<a-entity position="0 1.6 -6" rotation="0 0 0">
-  <a-camera wasd-controls look-controls></a-camera>
-</a-entity>
-
+      <a-entity position="0 1.6 -6">
         <a-camera wasd-controls look-controls></a-camera>
       </a-entity>
 
@@ -28,17 +39,17 @@
         rotation="-90 0 0" 
         width="200" 
         height="200" 
-        color="#228B22" 
+        material="src: #grassTexture; repeat: 40 40"
         shadow="receive: true">
       </a-plane>
 
-      <!-- Tennis Court (larger) -->
+      <!-- Tennis Court -->
       <a-plane 
         position="0 0.001 0" 
         rotation="-90 0 0" 
         width="36" 
         height="18" 
-        color="#2E8B57" 
+        material="src: #courtTexture; repeat: 6 3"
         shadow="receive: true">
       </a-plane>
 
@@ -55,17 +66,12 @@
         width="11" 
         height="1" 
         depth="0.05" 
-        material="opacity: 0.4; transparent: true; repeat: 10 10; src: https://cdn.aframe.io/a-painter/images/floor.jpg"
+        material="opacity: 0.5; transparent: true; repeat: 10 10; src: https://cdn.aframe.io/a-painter/images/floor.jpg"
         shadow="cast: true">
       </a-box>
 
       <!-- Tennis Ball -->
-      <a-sphere 
-        position="0 0.3 1" 
-        radius="0.25" 
-        color="yellow" 
-        shadow="cast: true">
-      </a-sphere>
+      <a-sphere position="0 0.3 1" radius="0.25" color="yellow" shadow="cast: true"></a-sphere>
 
       <!-- Scoreboard -->
       <a-box position="0 5 -12" width="8" height="4" depth="0.2" color="black">
@@ -73,14 +79,17 @@
       </a-box>
 
       <!-- Stadium Walls -->
-      <a-box position="0 2 -9.5" width="36" height="4" depth="1" color="#444"></a-box>
-      <a-box position="0 2 9.5" width="36" height="4" depth="1" color="#444"></a-box>
-      <a-box position="17.5 2 0" width="1" height="4" depth="18" color="#444"></a-box>
-      <a-box position="-17.5 2 0" width="1" height="4" depth="18" color="#444"></a-box>
+      <a-box position="0 2 -9.5" width="36" height="4" depth="1" material="src: #wallTexture; repeat: 3 1"></a-box>
+      <a-box position="0 2 9.5" width="36" height="4" depth="1" material="src: #wallTexture; repeat: 3 1"></a-box>
+      <a-box position="17.5 2 0" width="1" height="4" depth="18" material="src: #wallTexture; repeat: 2 2"></a-box>
+      <a-box position="-17.5 2 0" width="1" height="4" depth="18" material="src: #wallTexture; repeat: 2 2"></a-box>
 
-      <!-- Audience Stands -->
-      <a-box position="-14 1 -5" width="1" height="2" depth="8" color="#666"></a-box>
-      <a-box position="14 1 5" width="1" height="2" depth="8" color="#666"></a-box>
+      <!-- Poly.pizza Models -->
+      <a-entity gltf-model="#benchModel" position="10 0 -5" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#racketModel" position="0 0.3 2" scale="0.5 0.5 0.5" rotation="0 90 0"></a-entity>
+      <a-entity gltf-model="#chairModel" position="-12 0 5" scale="1.5 1.5 1.5"></a-entity>
+      <a-entity gltf-model="#coolerModel" position="-8 0 -7" scale="1 1 1"></a-entity>
+      <a-entity gltf-model="#scoreboardModel" position="0 0 -14" scale="2 2 2"></a-entity>
 
       <!-- Spotlights -->
       <a-cylinder position="-15 8 -5" radius="0.2" height="2" color="#888"></a-cylinder>
@@ -92,4 +101,3 @@
     </a-scene>
   </body>
 </html>
-
